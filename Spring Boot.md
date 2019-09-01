@@ -4732,6 +4732,98 @@ public class MyConfig {
     }
 }
 
+crtl
 ```
 
 im![\image\123.png](G:\读书笔记\image\123.png)
+
+crtl+H能看实现的类
+
+```
+1、RabbitAutoConfiguration* 
+2、有自动配置了连接工厂ConnectionFactory；*  
+3、RabbitProperties 封装了 RabbitMQ的配置* 
+4、 RabbitTemplate ：给RabbitMQ发送和接受消息；* 
+5、 AmqpAdmin ： RabbitMQ系统管理功能组件;*   
+AmqpAdmin：创建和删除 Queue，Exchange，Binding* 
+6、@EnableRabbit +  @RabbitListener 监听消息队列的内容
+```
+
+4.我们通过添加两个注解来实现监听功能。
+
+一个是在主启动程序加注解@EnableRabbit
+
+```java
+package com.magoe.rabbitmq;
+
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@EnableRabbit
+@SpringBootApplication
+public class RabbitmqWebtestApplication {
+
+	public static void main(String[] args) {
+
+		SpringApplication.run(RabbitmqWebtestApplication.class, args);
+	}
+
+}
+
+```
+
+之后是要server类加注解
+
+```java
+package com.magoe.rabbitmq.service;
+
+import com.magoe.rabbitmq.bean.Book;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
+
+@Service
+public class rabbitService {
+
+    @RabbitListener(queues = "atguigu")
+    public  void received(Book book){
+        System.out.println("你收到了一本书"+book);
+    }
+
+    @RabbitListener(queues= "atguigu.news")
+    public  void  receivedMsg(Message message){
+        System.out.println("====主"+message.getBody());
+        System.out.println("======"+message.getMessageProperties());
+    }
+}
+
+同时先开启主程序。之后通过单元测试发送消息
+```
+
+5.通过ampadmin创建交换器，队列等
+
+```java
+@Test
+	public void addexchange() {
+
+		admin.declareExchange(new DirectExchange("maogeEX.direct"));
+		admin.declareQueue(new Queue("maoge.queue"));
+		System.out.println("创建一个");
+
+	}
+
+添加绑定关系的时候比较复杂，new bingding的参数依次为：描述就是绑定的名字。这里为队列名，接着是绑定的类型，接着为交互器的名字，路由健，最好一个为参数。
+	@Test
+	public void addbind() {
+//	Map<String,String> map=new HashMap();
+//	map.put("msg","这个");
+		admin.declareBinding(new Binding("maoge.queue", Binding.DestinationType.QUEUE,"maogeEX.direct","maoge",null));
+//		amqpAdmin.declareBinding(new Binding("amqpadmin.queue", Binding.DestinationType.QUEUE,"amqpadmin.exchange","amqp.haha",null));
+
+	}
+```
+
+#### 12 SPRING boot 整合Elasticsearch
+
