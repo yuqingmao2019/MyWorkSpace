@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: image
+---
+
 *put一、**Spring Boot 入门
 
 ## 1、Spring Boot 简介
@@ -4734,4 +4738,13 @@ public class MyConfig {
 
 ```
 
-im![\image\123.png](G:\读书笔记\image\123.png)
+#### 12rabbitMQ
+
+
+
+
+
+
+
+
+
