@@ -121,7 +121,7 @@
 
 - sid 水手编号 bid 船编号 day 预定日期
 
-- 
+- ​
 
   - | sid  | bid  | day      |
     | ---- | ---- | -------- |
@@ -132,7 +132,7 @@
 
 - sid 水手编号 sname 水手姓名 rateing 水手级别 age 水手年龄
 
-- 
+- ​
 
   - | sid  | sname  | rating | age  |
     | ---- | ------ | ------ | ---- |
@@ -144,7 +144,7 @@
 
 - bid 船的编号 bname 船的名字 color 船的颜色
 
-- 
+- ​
 
   - | bid  | bname | color |
     | ---- | ----- | ----- |
@@ -156,7 +156,7 @@
 
 - sid 水手编号 sname 水手姓名 rateing 水手级别 age 水手年龄
 
-- 
+- ​
 
   - | sid  | sname  | rating | age  |
     | ---- | ------ | ------ | ---- |
